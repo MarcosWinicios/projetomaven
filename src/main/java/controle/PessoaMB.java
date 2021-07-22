@@ -85,7 +85,7 @@ public class PessoaMB implements Serializable {
 		this.pessoa = new EPessoa();
 	} 
 	
-	public void limpar() {
+	public void limpar() throws ParseException  {
 		this.listaPessoa.clear();
 		this.pessoa = new EPessoa();
 	}
