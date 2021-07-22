@@ -3,32 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	>
-	<h:head>
-		<title>Tela de cadastro</title>
-	</h:head>
-	<h:body>
-		<h1>Cadastro de Cliente</h1>
-		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputLabel id="lblCpf" value="CPF:"/>
-				<h:inputText id="inptxtCpf" value="#{cMB.cliente.cpf}" size="15"/>	
-				
-				<h:outputLabel id="lblNome" value="Nome:"/>
-				<h:inputText id="inptxtNome"  value="#{cMB.cliente.nome}" size="40"/>	
-				
-				<h:outputLabel id="lblDescricao" value="Descrição:"/>
-				<h:inputTextarea id="inptDescricao"  value="#{cMB.cliente.descricao}" rows="5" cols="40"/>
-			</h:panelGrid>
-			
-			<h:commandButton id="cmdbtGravar" actionListener="#{cMB.concatenar}" value="Gravar"/>
-			<h:commandButton id="cmdbtCancelar" actionListener="#{cMB.limparCliente}" value="Limpar"/>
-			
-			
-			<h:panelGrid columns="1">
-				<h:outputLabel id="lblConcatenado" value="#{cMB.cliente.concatenado}"/>
-			</h:panelGrid>
-			
-		</h:form>
-	</h:body>
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+  	<h:outputStylesheet library="css" name="tela.css" /> 
+	<title>Tela de cadastro</title>
+</h:head>
+<h:body>
+	<h1>Cadastro de Cliente</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+			<p:outputLabel id="lblCpf" value="CPF:" />
+			<p:inputText id="inptxtCpf" value="#{cMB.cliente.cpf}" size="15" />
+
+			<p:outputLabel id="lblNome" value="Nome:" />
+			<p:inputText id="inptxtNome" value="#{cMB.cliente.nome}" size="40" />
+
+			<p:outputLabel id="lblDescricao" value="Descrição:" />
+			<p:inputTextarea id="inptDescricao" value="#{cMB.cliente.descricao}"
+				rows="5" cols="40" />
+		</h:panelGrid>
+
+		<div class="centralizarBotoes">
+			<h:commandButton id="cmdbtGravar" actionListener="#{cMB.concatenar}" value="Gravar" />
+			<h:commandButton id="cmdbtCancelar" actionListener="#{cMB.limparCliente}" value="Limpar" />
+		</div>
+
+
+		<h:panelGrid columns="1">
+			<p:outputLabel id="lblConcatenado" value="#{cMB.cliente.concatenado}" />
+		</h:panelGrid>
+
+	</h:form>
+</h:body>
 </html>
