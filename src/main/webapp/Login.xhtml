@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<h:outputStylesheet library="css" name="login.css" />
+		<title>Login</title>
+	</h:head>
+	<h:body styleClass="body">
+		<p:growl life="3000"> <!-- Quantidade de milesegundos que a mensagem vai aparecer na tela -->
+			<p:autoUpdate/>
+		</p:growl>
+		<h:form>
+			<div class="centralizar">
+				<p:panel id="painel" styleClass="painel" header="Login">
+					<p:focus context="painel"/> <!-- apontar o foco da tela para o contexto(ao abrir a pagina) -->
+					<h:panelGrid columns="2"> 
+						<p:outputLabel for="usuario" value="Usuário" />
+						<p:inputText id="usuario" required="true"
+							requiredMessage="Informe o usuário!" styleClass="campoTexto"
+							value="#{loginMB.login.usuario}"
+						/>
+						
+						<p:outputLabel for="senha" value="Senha" />
+						<p:password id="senha" required="true"
+							requiredMessage="Informe a senha" styleClass="campoTexto"
+							value="#{loginMB.login.senha}" maxlength="20"
+						/>
+					</h:panelGrid>
+				</p:panel>
+			</div>
+			<br/>
+			<div class="centralizarBotoes">
+				<p:commandButton id="btnEntrar" value="Entrar"
+				icon="ui-icon-arrowthickstop-1-e" action="#{loginMB.validarLogin}" />
+				
+				<p:commandButton type="reset" ajax="true" immediate="true"
+				id="btnLimpar" value="Limpar" icon="ui-icon-fa-close" />
+			</div>
+			
+		</h:form>
+	</h:body>
+</html>

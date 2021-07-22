@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.painel {
+	width: 40%;
+	
+}
+
+.centralizar{
+	margin-left: 35%;
+	margin-top: 10%;
+}
+
+.centralizarBotoes{
+	margin-left: 40%;
+	margin-top: 1%;
+}
+
+.centralizarCaptcha{
+	margin-left: 37%;
+	margin-top: 2%;
+}
+
+.campoTexto{
+	width: 90%;
+}
+
