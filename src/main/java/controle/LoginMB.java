@@ -21,7 +21,10 @@ public class LoginMB implements Serializable {
 	MensagemMB oMsg = new MensagemMB();
 	
 	public LoginMB() throws SQLException{  /*Tirar duvidas sobre isso*/
-		SessionContext.getInstance().encerrarSessao();
+		
+		if(SessionContext.getInstance() != null) {			
+			SessionContext.getInstance().encerrarSessao();
+		}
 	}
 	
 	@Inject
@@ -47,7 +50,7 @@ public class LoginMB implements Serializable {
 			SessionContext.getInstance().setAttribute("usuario", login.getUsuario());
 			login = new Login();
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("Cadastro.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("CadastroGeral.xhtml");
 			}catch (IOException e) {
 				e.printStackTrace();
 			}		

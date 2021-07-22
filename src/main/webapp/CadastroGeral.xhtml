@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<h:outputStylesheet library="css" name="estilo.css" />
+		<title>Cadastro Geral</title>
+	</h:head>
+	<h:body >
+		<table class="tabela">
+			<tr>
+				<td width ="5%"><h:graphicImage library="imagens" name="ifgoiano.png" width="70"/> </td>
+				<td><p:outputLabel style="fontt-size:20px" value="Cadastro de Pessoas"/></td>
+				<td align="right">
+					<h:outputLink value="Login.xhtml">
+						<h:graphicImage  library="imagens" name="sair.jpg" width="40"/>
+					</h:outputLink>
+				</td>
+			</tr>
+		</table>
+		<p:growl life="3000">
+			<p:autoUpdate/>
+		</p:growl>
+		
+		<p:confirmDialog global="true">
+			<p:commandButton immediate="true" value="Sim" styleClass="ui-confirmadialog-yes" icon="ui-icon-check"/>
+			<p:commandButton immediate="true" value="Não" styleClass="ui-confirmadialog-no" icon="ui-icon-check"/>
+		</p:confirmDialog>
+		
+		<h:form id="formulario">
+			<p:tabView activeIndex="0" >
+				<p:tab title="Cadastro" >
+					<p:panel header="Dados Pessoais" id="painel">
+						<p:focus context="painel" for="cpf"/>
+						<h:panelGrid columns="2" columnClasses="alinharEsquerda, alinharDireita">
+							<p:outputLabel value=""/>
+							<p:outputLabel value=""/>
+							
+							<p:outputLabel for="cpf" value="CPF:"/>
+							<p:inputMask 
+								mask="999.999.999-99" 
+								id="cpf" 
+								required="true" 
+								requiredMessage="Digite o CPF!"
+								value="#{pessoaMB.pessoa.cpf}"
+							/>
+							<p:outputLabel  for="nome" value="Nome:"/>
+							<p:inputText
+								id="nome"
+								value="#{pessoaMB.pessoa.nome}"
+								size="50"
+								placeholder="Digite o nome aqui"
+								required="true"
+								requiredMessage="Digite o nome!"
+							/>
+							<p:outputLabel for="email" value="E-mail"/>
+							<p:inputText
+								id="email"
+								value="#{pessoaMB.pessoa.email}"
+								size="50"
+								placeholder="Digite o email aqui"
+								required="true"
+								requiredMessage="Digite o email"
+							/>
+							<p:outputLabel for="salario" value="Salário"/>
+							<p:inputNumber 
+								id="salario" 
+								value="#{pessoaMB.pessoa.salario}"
+								required="true"
+								requiredMessage="Digite o Salário"
+								size="20"
+							/>
+							<p:outputLabel for="observacao" value="Observação"/>
+							<p:inputTextarea
+								id="observacao"
+								value="#{pessoaMB.pessoa.observacao}"
+								cols="50"
+								rows="5"
+								maxlength="200"
+								required="true"
+								requiredMessage="Digite a observação!"
+								counter="digitos"
+								counterTemplate="{0} caracteres restantes"
+							/>
+							
+							<p:outputLabel value="" />
+							<p:outputLabel id="digitos"/>
+							
+							<p:outputLabel for="campoData" value="Data Nasc.:" />
+							<p:calendar 
+								id="campoData"
+								value="#{pessoaMB.pessoa.data_nasc}"
+								required="true"
+								requiredMessage="Digite a Data de Nascimento!"
+								size="19"
+								showOn="button"
+								pattern="dd/MM/yyyy"
+							/>
+							
+							<p:outputLabel for="curso" value="Curso:"/>
+							<p:selectOneMenu 
+								id="curso"
+								value="#{pessoaMB.pessoa.curso}"
+								filter="true"
+								required="true"
+								requiredMessage="Selecione o Curso"					
+							>
+							<f:selectItems value="#{pessoaMB.listaCombo}"/>
+							</p:selectOneMenu>
+							
+						</h:panelGrid>
+					</p:panel>
+					<br/>
+					<p:spacer width="500" height="20" />
+					
+					<!-- Update: campo utilizado pelo ajax para atualizar a página(id,campoASerAtualizado) -->
+					
+					<p:commandButton 
+						value="Salvar"
+						action="#{pessoaMB}"
+						title="Clique para adicionar na lista"
+						update="formulario tabela" 
+						icon="ui-icon-disk"
+					> 
+						<p:confirm header="Confirmação" message="Tem certeza que deseja adicionar?"/>
+					</p:commandButton>
+					
+					<p:commandButton
+						value="Editar"
+						update="formulario tabela"
+						icon="ui-icon-pencil"/>
+				
+					
+					
+					<p:commandButton
+						actionListener="#{pessoaMB.limpar}"
+						value="Limpar"
+						immediate="true"
+						update="formulario tabela"	
+					/>
+					
+					<div style="text-align: right;" >
+						<h:commandLink immediate="true">
+							<p:graphicImage 
+								title="Gerar XLS"
+								library="imagens"
+								name="xls.png"
+								width="3%"
+								height="3%"
+							/>
+							<p:dataExporter type="xls" target="tabela" fileName="RelatorioXLS"></p:dataExporter>
+						</h:commandLink>	
+						
+						<h:commandLink immediate="true">
+							<p:graphicImage					
+								title="Gerar PDF"
+								library="imagens"
+								name="pdf.png"
+								width="3%"
+								height="3%"
+							/>
+							<p:dataExporter type="pdf" target="tabela" fileName="RelatorioPDF"/>
+						</h:commandLink>
+					</div>
+					
+					<p:dataTable
+						id="tabela"
+						value="#{pessoaMB.listaPessoa}"
+						var="p"
+						border="1"
+						emptyMessage="Nenhum item na lista."
+					>
+						<p:column  headerText="CPF" style="text-align: center">
+							<p:outputLabel value="#{p.cpf}"/>
+						</p:column>
+						
+						<p:column sortBy="#{p.nome}" filterBy="#{p.nome}" headerText="Nome">
+							<p:outputLabel value="#{p.nome}"/>
+						</p:column>
+						
+						<p:column  headerText="E-mail" style="text-align: center">
+							<p:outputLabel value="#{p.email}"/>
+						</p:column>
+						
+						<p:column  headerText="Observação">
+							<p:outputLabel value="#{p.observacao}"/>
+						</p:column>
+						
+						<p:column sortBy="#{p.curso}" filterBy="#{p.curso}" headerText="Curso">
+							<p:outputLabel value="#{p.curso}"/>
+						</p:column>
+						 
+						<p:column headerText="Salário" style="text-align:right" width="60">
+							<h:outputText value="#{p.salario}" >
+								<f:convertNumber minFractionDigits="2"/>
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Data Nasc." style="text-align:center" width="70">
+							<h:outputText value="#{p.data_nasc}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Editar" width="40">
+							<p:commandButton
+								icon="ui-icon-pencil" 
+								title="Editar"
+								immediate="true"
+								update="formulario"
+							/>
+						</p:column>
+						
+						<p:column headerText="Excluir" width="40">
+							<p:commandButton
+								icon="ui-icon-trashl" 
+								title="Excluir"
+								immediate="true"
+								update="tabela"
+							/>
+						</p:column>
+						
+					</p:dataTable>
+					
+				</p:tab>
+				<p:tab title="Gráfico">
+					<h1>
+						<font class="corBranca">Nova aba em construção</font>
+					</h1>
+				</p:tab>
+			
+			</p:tabView>
+		</h:form>
+		
+	</h:body>
+</html>
