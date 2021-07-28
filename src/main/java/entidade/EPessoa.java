@@ -1,6 +1,8 @@
 package entidade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Date;
 
 public class EPessoa implements Serializable{
@@ -21,69 +23,73 @@ public class EPessoa implements Serializable{
 	
 	private Date data_nasc;
 	
-	private double salarioBruto;
+	private BigDecimal salarioBruto;
 	
-	private double salarioLiquido;
+	private BigDecimal salarioLiquido;
 	
-	private double descInss;
+	private BigDecimal descInss;
 	
-	private double descIr;
+	private BigDecimal descIr;
 	
 	private String tipoPessoa;
 	
 		
-	
-	public double getSalarioLiquido() {
-		return salarioLiquido;
-	}
-
-	public void setSalarioLiquido(double salarioLiquido) {
-		this.salarioLiquido = salarioLiquido;
-	}
-
-	private double calculaDescInss() {
-		double desconto =  0.11 / this.salarioBruto;
-		double salarioDescontado = this.salarioBruto - desconto;
+	private BigDecimal calculaDescInss() {//Calcula o INSS e retorna o resultado de SALARIO - INSS
+		BigDecimal porcentagem = new BigDecimal("0.11");
+		BigDecimal desconto = this.salarioBruto.multiply(porcentagem);
+		BigDecimal salarioDescontado = this.salarioBruto.subtract(desconto);
 		this.descInss = desconto;
+		
 		return salarioDescontado;
 	}
 	
-	public double calculaDescsIr() {//Deve ser chamado para calcular todo o desconto
-		double salarioDesc =  this.calculaDescInss();
-		double desconto;
-		double total;
-
-		if(this.salarioBruto <= 1903.98) {
-			this.descIr = 0;
-			return salarioDesc;
-		}else if(this.salarioBruto >= 1903.99 && this.salarioBruto <= 2826.65) {
-			desconto = 0.075 / this.salarioBruto;
-			total = salarioDesc - desconto;
+	private void calculaDescsIr() {//Deve ser chamado para calcular todo o desconto
+		BigDecimal salarioDesc =  this.calculaDescInss();
+		BigDecimal aliquota;
+		BigDecimal desconto;
+		
+		if(this.salarioBruto.compareTo(new BigDecimal("1903.99")) == -1 ) {
+			this.descIr = new BigDecimal("0");
+			
+		}else if( this.salarioBruto.compareTo(new BigDecimal("2826.66")) == -1 ) {
+			aliquota = new BigDecimal("0.075");
+			desconto = salarioDesc.multiply(aliquota);
 			this.descIr = desconto;
 			
-			return total;
+		
 
-		}else if(this.salarioBruto >= 2826.66 && this.salarioBruto <= 3751.05) {
-			desconto = 0.15 / this.salarioBruto;
-			total = salarioDesc - desconto;
+		}else if(this.salarioBruto.compareTo(new BigDecimal("3751.06")) == -1 ) {
+			aliquota = new BigDecimal("0.15");
+			desconto = salarioDesc.multiply(aliquota);
 			this.descIr = desconto;
 
-			return total;
-
-		}else if(this.salarioBruto >= 3751.06 && this.salarioBruto < 4664.68) {
-			desconto = 0.225 / this.salarioBruto;
-			total = salarioDesc - desconto;
+			
+		}else if(this.salarioBruto.compareTo(new BigDecimal("4664.68")) == -1 ) {
+			aliquota = new BigDecimal("0.225");
+			desconto = salarioDesc.multiply(aliquota);
 			this.descIr = desconto;
-
-			return total;
 
 		}else{
-			desconto = 0.225 / this.salarioBruto;
-			total = salarioDesc - desconto;
+			aliquota = new BigDecimal("0.275");
+			desconto = salarioDesc.multiply(aliquota);
 			this.descIr = desconto;
 
-			return total;
 		}
+		
+		
+	}
+	
+	public void calculaImposto() {
+		this.calculaDescInss();
+		this.calculaDescsIr();
+		
+		BigDecimal desconto = this.descInss.add(descIr);
+		this.salarioLiquido = this.salarioBruto.subtract(desconto);
+	}
+	
+	public String formatarSalario(BigDecimal salario) {
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+		return nf.format(salario);
 	}
 	
 	public String getSexo() {
@@ -94,19 +100,19 @@ public class EPessoa implements Serializable{
 		this.sexo = sexo;
 	}
 
-	public double getDescInss() {
+	public BigDecimal getDescInss() {
 		return descInss;
 	}
 
-	public void setDescInss(double descInss) {
+	public void setDescInss(BigDecimal descInss) {
 		this.descInss = descInss;
 	}
 
-	public double getDescIr() {
+	public BigDecimal getDescIr() {
 		return descIr;
 	}
 
-	public void setDescIr(double descIr) {
+	public void setDescIr(BigDecimal descIr ) {
 		this.descIr = descIr;
 	}
 
@@ -158,12 +164,12 @@ public class EPessoa implements Serializable{
 		this.data_nasc = data_nasc;
 	}
 
-	public double getSalarioBruto() {
+	public BigDecimal getSalarioBruto() {
 		return salarioBruto;
 	}
 
-	public void setSalarioBruto(double salario) {
-		this.salarioBruto = salario;
+	public void setSalarioBruto(BigDecimal salarioBruto) {
+		this.salarioBruto = salarioBruto;
 	}
 
 	public String getTipoPessoa() {
@@ -172,6 +178,14 @@ public class EPessoa implements Serializable{
 
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+	
+	public BigDecimal getSalarioLiquido() {
+		return salarioLiquido;
+	}
+	
+	public void setSalarioLiquido(BigDecimal salarioLiquido) {
+		this.salarioLiquido = salarioLiquido;
 	}
 	
 	
