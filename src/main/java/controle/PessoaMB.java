@@ -48,7 +48,7 @@ public class PessoaMB implements Serializable {
 	
 	
 	public EPessoa getPessoa() {
-		this.pessoa.setSalarioBruto(new BigDecimal("5000"));
+		
 		
 		return pessoa;
 	}
@@ -84,7 +84,14 @@ public class PessoaMB implements Serializable {
 	public void salvar() throws ParseException { /*Tirar Duvidas sobre isso*/
 		this.listaPessoa.add(this.pessoa);
 		this.pessoa = new EPessoa();
-	} 
+	}
+	
+	public void calcular() throws ParseException { /*Tirar Duvidas sobre isso*/
+		this.pessoa.calculaImposto();
+		this.listaPessoa.add(this.pessoa);
+		this.pessoa = new EPessoa();
+	}
+	
 	
 	public void limpar() throws ParseException  {
 		this.listaPessoa.clear();

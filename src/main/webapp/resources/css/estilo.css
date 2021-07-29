@@ -13,6 +13,10 @@ h1{
 	text-align: left;
 }
 
+.alinhasCentro{
+	text-align: center;
+}
+
 .alinharRetornar{
 	margin-left: 90%;
 	margin-top: 2%
@@ -37,4 +41,41 @@ h1{
 
 .ui-datatable-header{
 	background-color: 99CC32;
+	
+}
+
+.wrap{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+
+.panel-buttons{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.painel-dados{
+	width:960px;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.label-form{
+	color: #3383bb;
+	font-weight: bolder;
+	font-size: medium;
+	
+}
+
+.ui-widget-content{
+	border: 1px solid #eeeeee;
+    background: #eeeeee;
+    color: #333333;
 }

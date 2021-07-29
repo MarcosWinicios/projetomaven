@@ -29,7 +29,7 @@
 			<version>6.2</version>
 		</dependency>
 		
-		<!-- Tema do primefaces -->
+		<!-- Temas do primefaces -->
 		
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -40,6 +40,19 @@
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>cruze</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>cupertino</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
 		

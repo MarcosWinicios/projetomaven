@@ -50,7 +50,7 @@ public class LoginMB implements Serializable {
 			SessionContext.getInstance().setAttribute("usuario", login.getUsuario());
 			login = new Login();
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("CadastroGeral.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("Imposto.xhtml");
 			}catch (IOException e) {
 				e.printStackTrace();
 			}		
