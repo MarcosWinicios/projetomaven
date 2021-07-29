@@ -2,6 +2,7 @@ package controle;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -23,18 +24,18 @@ public class PessoaMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-	public PessoaMB() throws SQLException {
-		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
-			}catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		this.preencherCombo();
-		
-	}
+//	public PessoaMB() throws SQLException {
+//		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
+//			try {
+//				FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
+//			}catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		this.preencherCombo();
+//		
+//	}
 	
 	@Inject
 	private EPessoa pessoa;
@@ -46,9 +47,9 @@ public class PessoaMB implements Serializable {
 	MensagemMB oMsgMb = new MensagemMB();
 	
 	
-
-	
 	public EPessoa getPessoa() {
+		this.pessoa.setSalarioBruto(new BigDecimal("5000"));
+		
 		return pessoa;
 	}
 
