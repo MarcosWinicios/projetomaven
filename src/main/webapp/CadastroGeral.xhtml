@@ -71,7 +71,7 @@
 							<p:outputLabel for="salario" value="Salário"/>
 							<p:inputNumber 
 								id="salario" 
-								value="#{pessoaMB.pessoa.salario}"
+								value="#{pessoaMB.pessoa.salarioBruto}"
 								required="true"
 								requiredMessage="Digite o Salário"
 								size="20"
@@ -197,7 +197,7 @@
 						</p:column>
 						 
 						<p:column headerText="Salário" style="text-align:right" width="60">
-							<h:outputText value="#{p.salario}" >
+							<h:outputText value="#{p.salarioBruto}" >
 								<f:convertNumber minFractionDigits="2"/>
 							</h:outputText>
 						</p:column>
