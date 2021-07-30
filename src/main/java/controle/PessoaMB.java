@@ -24,23 +24,34 @@ public class PessoaMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-//	public PessoaMB() throws SQLException {
-//		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
-//			try {
-//				FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
-//			}catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		this.preencherCombo();
-//		
-//	}
+	public PessoaMB() throws SQLException {
+		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.preencherCombo();
+		
+	}
 	
 	@Inject
 	private EPessoa pessoa;
 	
+	private String salario;
 	
+		
+	public String getSalario() {
+		return salario;
+	}
+
+
+	public void setSalario(String salario) {
+		this.salario = salario;
+	}
+
 	private List<EPessoa> listaPessoa = new ArrayList<>();
 	private List<SelectItem> listaCombo = new ArrayList<SelectItem>();
 	
@@ -52,6 +63,7 @@ public class PessoaMB implements Serializable {
 		
 		return pessoa;
 	}
+	
 
 	public void setPessoa(EPessoa pessoa) {
 		this.pessoa = pessoa;
@@ -87,15 +99,22 @@ public class PessoaMB implements Serializable {
 	}
 	
 	public void calcular() throws ParseException { /*Tirar Duvidas sobre isso*/
+		this.pessoa.setSalarioBruto(new BigDecimal(this.salario));
+
 		this.pessoa.calculaImposto();
 		this.listaPessoa.add(this.pessoa);
 		this.pessoa = new EPessoa();
+		this.salario = new String();
 	}
 	
 	
 	public void limpar() throws ParseException  {
 		this.listaPessoa.clear();
 		this.pessoa = new EPessoa();
+
+		
 	}
+	
+	
 
 }

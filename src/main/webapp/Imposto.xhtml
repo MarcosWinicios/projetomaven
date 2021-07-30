@@ -59,18 +59,19 @@
 						<p:inputText id="sexo" value="#{pessoaMB.pessoa.sexo}"
 							placeholder="Informe o sexo" required="true"
 							requiredMessage="Digite o sexo" />
+						<p:outputLabel for="salario" value="Salário Bruto"
+							styleClass="label-form" />
+						<p:inputText id="salario"
+							value="#{pessoaMB.salario}" 
+							
+							placeholder="Informar Salário" required="true"
+							requiredMessage="Digite o Salário" />
 						<p:outputLabel for="campoData" value="Data Nasc.:"
 							styleClass="label-form" />
 						<p:calendar id="campoData" value="#{pessoaMB.pessoa.data_nasc}"
 							placeholder="Data de nascimento" required="true"
 							requiredMessage="Digite a Data de Nascimento!" showOn="button"
 							pattern="dd/MM/yyyy" />
-						<p:outputLabel for="salario" value="Salário Bruto"
-							styleClass="label-form" />
-						<p:inputNumber id="salario"
-							value="#{pessoaMB.pessoa.salarioBruto}" 
-							placeholder="Informar Salário" required="true"
-							requiredMessage="Digite o Salário" />
 					</h:panelGrid>
 				</div>
 			</p:panel>
@@ -85,16 +86,17 @@
 		<p:commandButton value="Calcular"
 			actionListener="#{pessoaMB.calcular}"
 			title="Clique para adicionar na lista" update="formulario tabela"
-			icon="ui-icon-disk">
-			<p:confirm header="Confirmação"
-				message="Tem certeza que deseja adicionar?" />
+			icon="ui-icon-disk"
+		>
+			<p:confirm header="Confirmação" message="Tem certeza que deseja adicionar?" />
 		</p:commandButton>
 
 		<p:commandButton value="Editar" update="formulario tabela"
 			icon="ui-icon-pencil" />
 
-		<p:commandButton actionListener="#{pessoaMB.limpar}" value="Limpar"
-			immediate="true" update="formulario tabela" icon="ui-icon-trash"/>
+		<p:commandButton actionListener="#{pessoaMB.limpar}" onclick="reset()" value="Limpar"
+			immediate="true"  update="formulario tabela " icon="ui-icon-trash"/>	 	
+			
 
 	</div>
 	<br />
