@@ -24,18 +24,25 @@ public class PessoaMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-//	public PessoaMB() throws SQLException {
-//		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
-//			try {
+	public PessoaMB() throws SQLException {
+		if (SessionContext.getInstance().getAttribute("usuario") == null) { /*Checando se o usario está setado na seção*/
+			try {
 //				FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
-//			}catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		this.preencherCombo();
-//		
-//	}
+				
+				boolean respostaComprometida = FacesContext.getCurrentInstance().getExternalContext()
+						.isResponseCommitted();
+
+				if (!respostaComprometida) {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
+				}
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.preencherCombo();
+		
+	}
 	
 	@Inject
 	private EPessoa pessoa;
