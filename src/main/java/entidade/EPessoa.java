@@ -5,22 +5,42 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "pessoa")
 public class EPessoa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@Column(name = "cpf_cnpj")
 	private String cpf;
 	
+	@Column(name = "nome")
 	private String nome;
 	
+	@Column(name = "sexo")
 	private String sexo;
 	
+	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "observacao")
 	private String observacao;
-
+	
+	@Column(name = "curso")
 	private String curso;
 	
+	@Column(name = "data_nasc")
 	private Date data_nasc;
 	
 	private BigDecimal salarioBruto;
@@ -31,6 +51,7 @@ public class EPessoa implements Serializable{
 	
 	private BigDecimal descIr;
 	
+	@Column(name = "tipoPessoa")
 	private String tipoPessoa;
 	
 		
@@ -92,6 +113,16 @@ public class EPessoa implements Serializable{
 		return nf.format(salario);
 	}
 	
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getSexo() {
 		return sexo;
 	}
