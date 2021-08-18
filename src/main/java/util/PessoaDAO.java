@@ -24,7 +24,7 @@ public class PessoaDAO {
 	}
 	
 	private EntityManager getEntityManager() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("default"); //Nome da Unit no persistence.xml
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit-jsf"); //Nome da Unit no persistence.xml
 		
 		if(entityManager == null) {
 			entityManager =  factory.createEntityManager();
