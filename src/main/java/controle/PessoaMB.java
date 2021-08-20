@@ -107,9 +107,9 @@ public class PessoaMB implements Serializable {
 	}
 	
 	public void calcular() throws ParseException { /*Tirar Duvidas sobre isso*/
-		this.pessoa.setSalarioBruto(new BigDecimal(this.salario));
+//		this.pessoa.setSalarioBruto(new BigDecimal(this.salario));
 
-		this.pessoa.calculaImposto();
+//		this.pessoa.calculaImposto();
 		this.listaPessoa.add(this.pessoa);
 		this.pessoa = new EPessoa();
 		this.salario = new String();

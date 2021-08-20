@@ -10,16 +10,16 @@ public class Testes {
 		// TODO Auto-generated method stub
 		EPessoa pessoa =  new EPessoa();
 		
-		pessoa.setSalarioBruto(new BigDecimal("8000"));
+//		pessoa.setSalarioBruto(new BigDecimal("8000"));
 		
-		pessoa.calculaImposto();
+//		pessoa.calculaImposto();
 
 		
-		System.out.println("Salário Bruto: \n" + pessoa.getSalarioBruto());
-		System.out.println("Desconto INSS: \n" + pessoa.getDescInss());
-		System.out.println("Desconto imposto de Renda: \n" + pessoa.getDescIr());
-		System.out.println("Salário Liquido: \n" + pessoa.getSalarioLiquido());
-		System.out.println("Salário Liquido formatado: \n" + pessoa.formatarSalario(pessoa.getSalarioLiquido()));
+//		System.out.println("Salário Bruto: \n" + pessoa.getSalarioBruto());
+//		System.out.println("Desconto INSS: \n" + pessoa.getDescInss());
+//		System.out.println("Desconto imposto de Renda: \n" + pessoa.getDescIr());
+//		System.out.println("Salário Liquido: \n" + pessoa.getSalarioLiquido());
+//		System.out.println("Salário Liquido formatado: \n" + pessoa.formatarSalario(pessoa.getSalarioLiquido()));
 
 	}
 
