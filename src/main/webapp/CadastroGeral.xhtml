@@ -133,6 +133,7 @@
 					
 					<p:commandButton
 						value="Editar"
+						action="#{pessoaMB.alterar}"
 						update="formulario tabela"
 						icon="ui-icon-pencil"/>
 						
@@ -211,18 +212,26 @@
 							<p:commandButton
 								icon="ui-icon-pencil" 
 								title="Editar"
+								action="#{pessoaMB.prepararEdicao}"
 								immediate="true"
 								update="formulario"
-							/>
+							>
+								<f:param name="parametroId" value="#{p.id}" />
+							</p:commandButton>
+							
 						</p:column>
 						
 						<p:column headerText="Excluir" width="40">
 							<p:commandButton
 								icon="ui-icon-trashl" 
 								title="Excluir"
+								action="#{pessoaMB.excluir}"
 								immediate="true"
 								update="tabela"
-							/>
+							>
+								<f:param name="parametroIdent" value="#{p.id}" />
+								
+							</p:commandButton>
 						</p:column>
 						
 					</p:dataTable>
@@ -233,7 +242,6 @@
 						<font class="corBranca">Nova aba em construção</font>
 					</h1>
 				</p:tab>
-			
 			</p:tabView>
 		</h:form>
 		

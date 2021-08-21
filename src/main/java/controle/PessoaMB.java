@@ -7,12 +7,17 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.swing.text.View;
 
 import entidade.EPessoa;
 import util.PessoaDAO;
@@ -39,9 +44,13 @@ public class PessoaMB implements Serializable {
 			}catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+			this.preencherCombo();
+			this.carregarLista();
+			
 		}
 		
-		this.preencherCombo();
+		
 		
 	}
 	
@@ -101,27 +110,67 @@ public class PessoaMB implements Serializable {
 		this.listaCombo.add(new SelectItem("4", "Zootecnia"));
 	}
 	
-	public void salvar() throws ParseException, SQLException { /*Tirar Duvidas sobre isso*/
+	public void salvar() { /*Tirar Duvidas sobre isso*/
 		PessoaDAO.getInstance().salvar(pessoa);
+		this.carregarLista();
 		limpar();
 	}
 	
-	public void calcular() throws ParseException { /*Tirar Duvidas sobre isso*/
-//		this.pessoa.setSalarioBruto(new BigDecimal(this.salario));
-
-//		this.pessoa.calculaImposto();
-		this.listaPessoa.add(this.pessoa);
-		this.pessoa = new EPessoa();
-		this.salario = new String();
-	}
-	
-	
-	public void limpar() throws ParseException  {
-		this.listaPessoa.clear();
-		this.pessoa = new EPessoa();
-
+	public void carregarLista() {
+		listaPessoa.clear();
+		listaPessoa = PessoaDAO.getInstance().listarTodos();
+		
 		
 	}
+	
+	public void excluir() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		Object parametro = params.get("parametroIdent");
+		pessoa.setId(Long.parseLong(parametro.toString()));
+		PessoaDAO.getInstance().remover(pessoa);
+		this.limpar();
+		this.carregarLista();
+	}
+	
+	public void alterar() {
+		PessoaDAO.getInstance().alterar(pessoa);
+		this.limpar();
+		this.carregarLista();
+	}
+
+	
+	public void limpar()   {
+		this.pessoa =  new EPessoa();
+		this.refresh();
+	}
+	
+	public void prepararEdicao() throws ParseException{
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		Object parametroId = params.get("parametroId");
+		this.pessoa = PessoaDAO.getInstance().buscarPorId(Long.parseLong(parametroId.toString()));
+		this.refresh();
+	}
+	
+	public void refresh() { /* Atualizar os valores do objeto na tela após terem sido alterados*/
+		FacesContext context =  FacesContext.getCurrentInstance();
+		Application application =  context.getApplication();
+		ViewHandler viewHandler = application.getViewHandler();
+		UIViewRoot viewRoot =  viewHandler.createView(context, context.getViewRoot().getViewId());
+		context.setViewRoot(viewRoot);
+		context.renderResponse();
+		
+	}
+	
+	
+//	public void calcular() throws ParseException { /*Tirar Duvidas sobre isso*/
+////		this.pessoa.setSalarioBruto(new BigDecimal(this.salario));
+//
+////		this.pessoa.calculaImposto();
+//		this.listaPessoa.add(this.pessoa);
+//		this.pessoa = new EPessoa();
+//		this.salario = new String();
+//	}
+	
 	
 	
 

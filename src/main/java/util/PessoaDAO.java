@@ -1,5 +1,7 @@
 package util;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -40,6 +42,47 @@ public class PessoaDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback(); // Desfaz a operação no banco
+		}
+	}
+	
+	public EPessoa buscarPorId(final long id) { //final pq o valor não será alterado
+		return entityManager.find(EPessoa.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<EPessoa> listarTodos(){
+		return entityManager.createQuery("FROM " + EPessoa.class.getName()).getResultList();
+	}
+	
+	public void alterar(EPessoa pessoa) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(pessoa);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public void remover(EPessoa pessoa) {
+		try {
+			entityManager.getTransaction().begin();
+			pessoa = entityManager.find(EPessoa.class, pessoa.getId());
+			entityManager.remove(pessoa);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	public void removerPorId(final long id) {
+		try {
+			EPessoa pessoa =  this.buscarPorId(id);
+			this.remover(pessoa);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }
