@@ -38,7 +38,7 @@
 				<p:tab title="Cadastro" >
 					<p:panel header="Dados Pessoais" id="painel">
 						<p:focus context="painel" for="cpf"/>
-						<h:panelGrid columns="2" columnClasses="alinharEsquerda, alinharDireita">
+						<h:panelGrid columns="2" columnClasses="alinharDireita, alinharEsquerda">
 							<p:outputLabel value=""/>
 							<p:outputLabel value=""/>
 							
@@ -155,7 +155,7 @@
 								width="3%"
 								height="3%"
 							/>
-							<p:dataExporter type="xls" target="tabela" fileName="RelatorioXLS"></p:dataExporter>
+							<p:dataExporter type="xls" target="tabela" fileName="RelatorioXLS"/>
 						</h:commandLink>	
 						
 						<h:commandLink immediate="true">
@@ -238,9 +238,7 @@
 					
 				</p:tab>
 				<p:tab title="Gráfico">
-					<h1>
-						<font class="corBranca">Nova aba em construção</font>
-					</h1>
+					<p:chart type="line" model="#{GraficoAreaMB.areaModel}" style="height:300px" />
 				</p:tab>
 			</p:tabView>
 		</h:form>
